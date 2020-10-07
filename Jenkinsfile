@@ -4,14 +4,16 @@ pipeline {
 	stages {
 	   stage('Build') {
    		steps {
-			docker build . -t webapp:latest
+			docker build . -t master-website:latest
 		      }
 		}
 	
 	
 		stage('Deploy') {
 		steps {
-			docker run -p 81:80 -d webapp:latest
+			docker stop master-website:latest
+			docker rm master-website:latest
+			docker run -p 81:80 -d master-website:latest
 			  }
 		
 		}
